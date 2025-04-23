@@ -40,7 +40,7 @@ const MoviesGrid = () => {
         return true;
       case "Good":
         return movie.rating >= 8;
-      case "ok":
+      case "Ok":
         return movie.rating >= 5 && movie.rating < 8;
       case "Bad":
         return movie.rating >= 0 && movie.rating < 5;
