@@ -4,7 +4,7 @@ import MovieCard from "./MovieCard";
 
 const Watchlist = ({ movies, watchlist, toggleWatchlist }) => {
   return (
-    <div className="watchlist">
+    <div>
       <h1 className="title">Your Watchlist</h1>
       <div className="watchlist">
         {watchlist.map((id) => {
