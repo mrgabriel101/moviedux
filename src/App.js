@@ -1,6 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
 import "./styles.css";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,6 +8,23 @@ import MoviesGrid from "./components/MoviesGrid";
 import Watchlist from "./components/Watchlist";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
+
+  useEffect(() => {
+    fetch("movies.json")
+      .then((response) => response.json())
+      .then((data) => setMovies(data));
+  }, []);
+
+  const toggleWatchlist = (movieId) => {
+    setWatchlist((prev) =>
+      prev.includes(movieId)
+        ? prev.filter((id) => id !== movieId)
+        : [...prev, movieId]
+    );
+  };
+
   return (
     <div className="App">
       <div className="container">
@@ -24,8 +41,26 @@ function App() {
             </ul>
           </nav>
           <Routes>
-            <Route path="/" element={<MoviesGrid />} />
-            <Route path="/watchlist" element={<Watchlist />} />
+            <Route
+              path="/"
+              element={
+                <MoviesGrid
+                  movies={movies}
+                  watchlist={watchlist}
+                  toggleWatchlist={toggleWatchlist}
+                />
+              }
+            />
+            <Route
+              path="/watchlist"
+              element={
+                <Watchlist
+                  movies={movies}
+                  watchlist={watchlist}
+                  toggleWatchlist={toggleWatchlist}
+                />
+              }
+            />
           </Routes>
         </Router>
       </div>
